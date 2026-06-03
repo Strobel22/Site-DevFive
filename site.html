@@ -604,28 +604,33 @@
     height: 1px;
     background: linear-gradient(90deg, rgba(0,245,255,.3), transparent);
   }
- 
+
+  /* =============================================
+     SERVIÇOS REALIZADOS — GRID E MOLDURAS (CORRIGIDO)
+     Imagens em proporção 16:9, sem corte, lado a lado
+     ============================================= */
   .servicos-realizados-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2px;
     background: rgba(0,245,255,.04);
+    padding: 2px;
   }
- 
-  /* Moldura quadrada */
+
+  /* Moldura landscape 16:9 — SEM corte */
   .servico-img-frame-new {
     width: 100%;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 16 / 9;
     position: relative;
     overflow: hidden;
     background: var(--dark2);
     transition: background .3s;
   }
- 
+
   .servico-img-frame-new:hover {
     background: var(--dark3);
   }
- 
+
   /* Cantos decorativos */
   .servico-img-frame-new::before,
   .servico-img-frame-new::after {
@@ -646,68 +651,23 @@
     border-bottom: 2px solid rgba(0,245,255,.5);
     border-right: 2px solid rgba(0,245,255,.5);
   }
- 
-  /* Imagem real dentro da moldura */
+
+  /* Imagem real: contain para não cortar, centralizada */
   .servico-img-frame-new img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
+    object-position: center center;
     display: block;
     transition: transform .5s ease, opacity .4s ease;
-    opacity: .85;
+    opacity: .92;
+    background: var(--dark2);
   }
   .servico-img-frame-new:hover img {
-    transform: scale(1.04);
+    transform: scale(1.02);
     opacity: 1;
   }
- 
-  /* Placeholder dentro da moldura quadrada */
-  .servico-img-frame-placeholder-new {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 16px;
-    background: linear-gradient(135deg, var(--dark2) 0%, var(--dark3) 100%);
-    position: relative;
-  }
- 
-  /* Grade de fundo no placeholder */
-  .servico-img-frame-placeholder-new::before {
-    content: '';
-    position: absolute; inset: 0;
-    background-image:
-      linear-gradient(rgba(0,245,255,.03) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(0,245,255,.03) 1px, transparent 1px);
-    background-size: 40px 40px;
-  }
- 
-  .placeholder-icon {
-    position: relative; z-index: 1;
-    width: 72px; height: 72px;
-    border: 1px solid rgba(0,245,255,.2);
-    display: flex; align-items: center; justify-content: center;
-  }
-  .placeholder-icon::before {
-    content: '';
-    position: absolute; inset: 5px;
-    border: 1px solid rgba(0,245,255,.1);
-  }
-  .placeholder-icon svg { width: 36px; height: 36px; opacity: .4; }
- 
-  .placeholder-label {
-    position: relative; z-index: 1;
-    font-family: 'Share Tech Mono', monospace;
-    font-size: .65rem;
-    letter-spacing: 4px;
-    color: var(--cyan);
-    opacity: .35;
-    text-transform: uppercase;
-    text-align: center;
-  }
- 
+
   /* Label numérico no canto inferior esquerdo */
   .servico-img-num {
     position: absolute;
@@ -716,11 +676,33 @@
     font-size: .6rem;
     letter-spacing: 3px;
     color: var(--cyan);
-    opacity: .35;
+    opacity: .45;
     z-index: 3;
     text-transform: uppercase;
   }
- 
+
+  /* Barra inferior de legenda */
+  .servico-img-label {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 10px 20px 12px;
+    background: linear-gradient(0deg, rgba(3,13,13,.85) 0%, transparent 100%);
+    font-family: 'Share Tech Mono', monospace;
+    font-size: .65rem;
+    letter-spacing: 3px;
+    color: var(--cyan);
+    opacity: 0;
+    z-index: 3;
+    text-transform: uppercase;
+    transition: opacity .3s;
+    text-align: right;
+  }
+  .servico-img-frame-new:hover .servico-img-label {
+    opacity: 1;
+  }
+
+  /* ============================================= */
+
   .servico-body { padding: 32px 30px 36px; flex: 1; }
  
   .servico-num {
@@ -831,6 +813,7 @@
     .mvv-item:last-child { border-bottom: none; }
     footer { flex-direction: column; gap: 10px; text-align: center; padding: 24px; }
     .hero-sub { font-size: .85rem; }
+    /* No mobile, empilha as imagens */
     .servicos-realizados-grid { grid-template-columns: 1fr; }
     .servicos-realizados-header { padding: 28px 24px 24px; flex-wrap: wrap; }
   }
@@ -979,82 +962,83 @@
   <div class="equipe-intro">
     <p>Seis talentos unidos por uma visão em comum. Conheça as pessoas que constroem a DevFive e tornam cada projeto possível.</p>
   </div>
-<div class="equipe-grid">
+  <div class="equipe-grid">
 
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/orlando.jpeg" alt="Orlando Souza">
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/orlando.jpeg" alt="Orlando Souza">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 01</span>
+        <h3 class="membro-nome">Orlando Souza</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Analista Back-End</span>
+      </div>
     </div>
-    <div class="membro-info">
-      <span class="membro-num">// 01</span>
-      <h3 class="membro-nome">Orlando Souza</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Analista Back-End</span>
+
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/fabiano.jpeg" alt="Fabiano Costa">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 02</span>
+        <h3 class="membro-nome">Fabiano Costa</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Analista Back-End</span>
+      </div>
     </div>
+
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/lucas.jpeg" alt="Lucas Messias">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 03</span>
+        <h3 class="membro-nome">Lucas Messias</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Design</span>
+      </div>
+    </div>
+
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/bergas.jpeg" alt="Gabriel Bergas">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 04</span>
+        <h3 class="membro-nome">Gabriel Bergas</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Design</span>
+      </div>
+    </div>
+
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/gabriel.jpeg" alt="Gabriel Carneiro">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 05</span>
+        <h3 class="membro-nome">Gabriel Carneiro</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Analista Front-End</span>
+      </div>
+    </div>
+
+    <div class="membro-card">
+      <div class="membro-foto-wrap">
+        <img src="../Nova pasta/diego.jpeg" alt="Diego Strobel">
+      </div>
+      <div class="membro-info">
+        <span class="membro-num">// 06</span>
+        <h3 class="membro-nome">Diego Strobel</h3>
+        <div class="membro-divider"></div>
+        <span class="membro-funcao">Analista Front-End</span>
+      </div>
+    </div>
+
   </div>
+</section>
 
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/fabiano.jpeg" alt="Fabiano Costa">
-    </div>
-    <div class="membro-info">
-      <span class="membro-num">// 02</span>
-      <h3 class="membro-nome">Fabiano Costa</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Analista Back-End</span>
-    </div>
-  </div>
-
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/lucas.jpeg" alt="Lucas Messias">
-    </div>
-    <div class="membro-info">
-      <span class="membro-num">// 03</span>
-      <h3 class="membro-nome">Lucas Messias</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Design</span>
-    </div>
-  </div>
-
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/bergas.jpeg" alt="Gabriel Bergas">
-    </div>
-    <div class="membro-info">
-      <span class="membro-num">// 04</span>
-      <h3 class="membro-nome">Gabriel Bergas</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Design</span>
-    </div>
-  </div>
-
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/gabriel.jpeg" alt="Gabriel Carneiro">
-    </div>
-    <div class="membro-info">
-      <span class="membro-num">// 05</span>
-      <h3 class="membro-nome">Gabriel Carneiro</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Analista Front-End</span>
-    </div>
-  </div>
-
-  <div class="membro-card">
-    <div class="membro-foto-wrap">
-      <img src="../Nova pasta/diego.jpeg" alt="Diego Strobel">
-    </div>
-    <div class="membro-info">
-      <span class="membro-num">// 06</span>
-      <h3 class="membro-nome">Diego Strobel</h3>
-      <div class="membro-divider"></div>
-      <span class="membro-funcao">Analista Front-End</span>
-    </div>
-  </div>
-
-</div>
- 
 <section id="servicos">
   <p class="section-label">// o que entregamos</p>
   <h2 class="section-title">Nossos Serviços</h2>
@@ -1244,25 +1228,26 @@
       <h3>Serviços Já Realizados</h3>
       <div class="sr-accent-line"></div>
     </div>
- 
+
     <div class="servicos-realizados-grid">
- 
-      <!-- Moldura quadrada 1 — com imagem real -->
+
+      <!-- Projeto 01 — Game Land Homepage -->
       <div class="servico-img-frame-new">
-        <img src="../Nova pasta/WhatsApp Image 2026-05-06 at 19.47.54.jpeg" alt="Projeto 01">
-        <span class="servico-img-num">// projeto 01</span>
+        <img src="../Nova pasta/nova.jpeg" alt="Game Land — Home Page">
+        <span class="servico-img-num">// projeto 01 — game land · home page</span>
+        <span class="servico-img-label">GAME LAND — HOME PAGE</span>
       </div>
- 
-      <!-- Moldura quadrada 2 — placeholder (substitua com img quando tiver) -->
+
+      <!-- Projeto 02 — Game Land Catálogo -->
       <div class="servico-img-frame-new">
-          <img src="../Nova pasta/sis.jpeg" alt="Projeto 02">
-          <span class="placeholder-label">// inserir imagem aqui</span>
-        <span class="servico-img-num">// projeto 02</span>
+        <img src="../Nova pasta//nova2.jpeg" alt="Game Land — Catálogo">
+        <span class="servico-img-num">// projeto 02 — game land · catálogo</span>
+        <span class="servico-img-label">GAME LAND — CATÁLOGO</span>
       </div>
- 
+
     </div>
   </div>
- 
+
 </section>
  
 <section id="contato">
